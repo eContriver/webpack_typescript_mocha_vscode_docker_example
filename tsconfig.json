@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "module": "es6",
+        "target": "es5",
+        "moduleResolution": "Node",
+        "lib": [
+            "es2020",
+            "DOM",
+        ],
+    }
+}

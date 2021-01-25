@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  dev:
+   image: wtmvd_deps:latest
+   stdin_open: true 
+   tty: true 
+   depends_on: 
+     - wtmvd_deps
+   volumes:
+     - type: volume
+       source: webpack_typescript_mocha_vscode_docker_example
+       target: /workspace/

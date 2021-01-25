@@ -1,0 +1,51 @@
+# Copyright (c) 2021 eContriver LLC
+
+# Test volumes
+#   docker volume rm webpack_typescript_mocha_vscode_docker_example && docker volume create --driver local --opt type=cifs --opt device=//192.168.1.100/projects/webpack_typescript_mocha_vscode_docker_example --opt o=username=user,password=pw webpack_typescript_mocha_vscode_docker_example
+#   docker run --rm -it -v webpack_typescript_mocha_vscode_docker_example:/workspace/ wtmvd_deps bash -c "ls -la /workspace && touch /workspace/test-`date +%s` && ls -la /workspace"
+
+version: "3.8"
+
+services:
+  wtmvd_deps:
+    image: wtmvd_deps:latest
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+  bash:
+   image: wtmvd_deps:latest
+   stdin_open: true 
+   tty: true 
+   depends_on: 
+     - wtmvd_deps
+   volumes:
+     - type: volume
+       source: webpack_typescript_mocha_vscode_docker_example
+       target: /workspace/
+   command:
+     bash
+  build:
+    image: wtmvd_deps:latest
+    depends_on: 
+      - wtmvd_deps
+    volumes:
+      - type: volume
+        source: webpack_typescript_mocha_vscode_docker_example
+        target: /workspace/
+    working_dir: /workspace
+    command:
+      npm run build
+  test:
+    image: wtmvd_deps:latest
+    depends_on: 
+      - wtmvd_deps
+    volumes:
+      - type: volume
+        source: webpack_typescript_mocha_vscode_docker_example
+        target: /workspace/
+    working_dir: /workspace
+    command:
+      npm run test
+volumes:
+  webpack_typescript_mocha_vscode_docker_example:
+    external: true

@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Mocha Tests Debug",
+            "type": "pwa-node",
+            "request": "launch",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/mocha",
+            "sourceMaps": true,
+            "args": [
+                "--inspect",
+                "--no-timeouts",
+                "--recursive",
+                "--colors",
+                "${workspaceFolder}/dist"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "internalConsoleOptions": "openOnSessionStart",
+            "outFiles": [
+                "${workspaceFolder}/dist/main.js"
+            ],
+            // "resolveSourceMapLocations": [
+            //     "${workspaceFolder}/**"
+            // ],
+            // "localRoot": "${workspaceFolder}",
+            // "remoteRoot": "/JS_WASD_Gameasd",
+            "preLaunchTask": "build"
+        },
+    ]
+}
